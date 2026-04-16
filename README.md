@@ -51,7 +51,7 @@ Assurance/
 |   |-- econometrie.ipynb             # Analyse descriptive + AFDM + GLM (Gamma, Inv. Gaussien)
 |
 |-- machine_learning/                  # Notebook de Machine Learning et Deep Learning
-|   |-- machine_learning_final.ipynb  # 6 modeles ML + 4 architectures DL (TensorFlow)
+|   |-- machine_learning.ipynb        # 6 modeles ML + 4 architectures DL (TensorFlow)
 |
 |-- mise_en_production/                # Application Streamlit
 |   |-- app.py                        # Application web interactive (OOP, pages separees)
