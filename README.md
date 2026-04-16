@@ -13,14 +13,6 @@ L'objectif est de mener une etude complete de data science : du traitement des d
 
 ---
 
-## Participants
-
-| Nom | Prenom | Role |
-|-----|--------|------|
-| SEYANKAM | Dorcas | Data Scientist Junior |
-
----
-
 ## Organisation du Projet
 
 ```
