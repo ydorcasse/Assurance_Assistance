@@ -1,0 +1,32 @@
+table,etape,variable,lignes_impactees,description,retraitement,justification
+dossier,doublons,Numero_dossier_ID,782,782 lignes impures reparties sur 391 dossiers,Ligne de reference + arbitrage colonne par colonne (regles NB2),Impossible de supprimer car meme Numero_dossier_ID : reconciliation valeurs
+dossier,doublons,Numero_dossier_ID,842,842 doublons purs,drop_duplicates (garder 1 occurrence),Lignes strictement identiques : aucune perte d'information
+dossier,encodage,Assistance.ou.Administratif,9999,"9999 valeurs parmi ['', '???', 'INCONNU', 'Inconnu', 'NA', 'inconnu']",Remplacees par NaN,Tokens d'absence detectes par inspection visuelle
+dossier,encodage,Formule,5000,"5000 valeurs parmi ['', '???', 'INCONNU', 'Inconnu', 'NA', 'inconnu']",Remplacees par NaN,Tokens d'absence detectes par inspection visuelle
+dossier,encodage,Type.d.energie,500,"500 valeurs parmi ['', '???', 'INCONNU', 'Inconnu', 'NA', 'inconnu']",Remplacees par NaN,Tokens d'absence detectes par inspection visuelle
+dossier,incoherence,date.de.survenance,981,981 NaT,Impute par date.ouverture,Borne inferieure metier : survenance <= ouverture
+dossier,incoherence,date.de.survenance,7,7 cas survenance > ouverture,Remplace par date.ouverture,Impossibilite metier : sinistre apres ouverture
+dossier,incoherence,heure.ouverture,981,981 heures > 24:00:00 (ex: 25:00:00),Remplacees par 00:00:00 (minuit),"Heure physiquement impossible (glossaire : HH:MM:SS avec HH dans [0,24])"
+dossier,missing,Assistance.ou.Administratif,9764,9764 NaN,Impute par mode global ('Assistance'),"Binaire, mode >80%"
+dossier,missing,Cause.intervention,977,977 NaN,Impute 'Non renseignee',Pas de proxy fiable : creer une modalite explicite
+dossier,missing,Formule,5812,5812 NaN,Impute par le mode de Formule par Client,Formule liee au contrat client
+dossier,missing,Type.d.energie,1463,1463 NaN,Impute 'Non renseigne',Champ non obligatoire selon glossaire
+dossier,periode,date.ouverture,10,10 dossiers avec date.ouverture hors 2021-2022,Lignes supprimees,Glossaire : perimetre d'etude = dossiers 2021-2022 France
+dossier,typage,date.de.survenance,1000,1000 valeurs non parseables au format AAAA/MM/JJ,Converties en NaT,Format impose par le glossaire ; valeurs hors format non fiables
+dossier,typage,date.ouverture,10,10 valeurs non parseables au format AAAA/MM/JJ,Converties en NaT,Format impose par le glossaire ; valeurs hors format non fiables
+temps,incoherence,duree.corrigee,385,385 durees > P99.9 (3688s),Plafonnees a P99.9,Neutraliser outliers sans supprimer de lignes
+temps,missing,duree.corrigee,47471,47471 NaN = dossiers TEST,Conservees telles quelles,NaN metier : dossiers a predire (glossaire)
+ressources,incoherence,Duree.travail,5,5 valeurs > 12.0h,Plafonnees a 12.0h,Journee theorique 7.33h : 12h = plafond metier
+global,fusion,duree_corrigee_totale,2205,2205 dossiers sans lignes dans temps.csv,Impute 0,Dossier cree automatiquement (matricule 171) : 0 action humaine
+global,fusion,duree_travail_moy,2304,2304 NaN,Impute par mediane (7.083),Dossier sans matching agents (creation auto)
+global,fusion,exp_moy,2304,2304 NaN,Impute par mediane (584.667),Dossier sans matching agents (creation auto)
+global,fusion,nb_intervenants,2205,2205 dossiers sans lignes dans temps.csv,Impute 0,Dossier cree automatiquement (matricule 171) : 0 action humaine
+global,fusion,nb_interventions,2205,2205 dossiers sans lignes dans temps.csv,Impute 0,Dossier cree automatiquement (matricule 171) : 0 action humaine
+global,fusion,pct_cas,2304,2304 NaN,Impute par mediane (1.000),Dossier sans matching agents (creation auto)
+global,fusion,pct_cdi,2304,2304 NaN,Impute par mediane (0.500),Dossier sans matching agents (creation auto)
+global,fusion,pop_mode,2304,2304 NaN,Impute par mode global ('CAS'),Dossier sans matching agents
+global,fusion,prop_tele,2304,2304 NaN,Impute par mediane (0.440),Dossier sans matching agents (creation auto)
+global,fusion,site_mode,2304,2304 NaN,Impute par mode global ('A'),Dossier sans matching agents
+global,fusion,temps_moyen_action,13041,13041 dossiers sans lignes dans temps.csv,Impute 0,Dossier cree automatiquement (matricule 171) : 0 action humaine
+global,fusion,type_contrat_mode,2304,2304 NaN,Impute par mode global ('CDI'),Dossier sans matching agents
+global,split,duree_corrigee_totale,13041,13041 dossiers TEST,Exportes dans base_test.csv,Glossaire : 89/11 train/test ; TEST = duree.corrigee NaN
